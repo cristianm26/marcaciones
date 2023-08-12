@@ -25,19 +25,29 @@ class AuthenticationRepositoryImpl implements AuthenticationRepository {
     return sessionId != null;
   }
 
+  /* @override
+  Future<bool> get isUrlApi async {
+    final urlApi = await _sessionService.urlApi;
+    return urlApi != null;
+  } */
+
   @override
   Future<Either<SignInFailure, User>> signIn(
     String username,
     String password,
+    String domain,
   ) async {
     final loginResult = await _authenticationApi.createSessionWithLogin(
       username: username,
       password: password,
+      domain: domain,
     );
     return loginResult.when(
       (failure) async => Either.left(failure),
       (newRequestToken) async {
         await _sessionService.saveToken(newRequestToken);
+        //await _sessionService.saveUrlApi(domain);
+        //await _sessionService.saveUrlApi(urlApi)
         final sessionResult = await _authenticationApi.createSession(
           newRequestToken,
         );

@@ -4,12 +4,14 @@ import '../../../domain/either.dart';
 import '../../../domain/enums.dart';
 import '../../http/http.dart';
 import '../local/generic_service.dart';
+import '../local/utils.dart';
 
 class AuthenticationApi {
   //AuthenticationApi(this._client);
   AuthenticationApi(this._http);
   final Http _http;
   final GenericService _genericService = GenericService();
+
   Either<SignInFailure, String> _handleFailure(HttpFailure failure) {
     if (failure.statusCode != null) {
       switch (failure.statusCode!) {
@@ -46,10 +48,8 @@ class AuthenticationApi {
   Future<Either<SignInFailure, String>> createSessionWithLogin({
     required String username,
     required String password,
+    required String domain,
   }) async {
-    /* varJsonLogi.usuarioUser = this.genericService.encodeString(this.genericService.cleanString(this.varFormLogi.usuarioUser), 123);
-    varJsonLogi.usuarioPassword = this.genericService.encodeString(this.genericService.cleanString(this.varFormLogi.usuarioPassword), 123); */
-    /*final encodedUsername = _genericService.encodeString(username, 123);*/
     final encodedUsername = _genericService.encodeString(
       _genericService.cleanString(username),
       123,
@@ -59,6 +59,11 @@ class AuthenticationApi {
       _genericService.cleanString(password),
       123,
     );
+
+    final String newBaseUrl = replaceUrl(domain); // Calcular la nueva URL
+    _http.updateBaseUrl(newBaseUrl);
+    print('Constructed base URL: $newBaseUrl');
+
     final result = await _http.request(
       'login_controller',
       method: HttpMethod.post,
@@ -77,6 +82,7 @@ class AuthenticationApi {
           jsonDecode(responseBody),
         );
         final responseData = json['response']['data']['data'][0];
+
         return responseData['token'] as String;
       },
     );

@@ -36,6 +36,23 @@ class SignInView extends StatelessWidget {
                         TextFormField(
                           autovalidateMode: AutovalidateMode.onUserInteraction,
                           onChanged: (text) {
+                            controller.onDomainChanged(text);
+                          },
+                          decoration: const InputDecoration(
+                            hintText: 'Dominio',
+                          ),
+                          validator: (text) {
+                            text = text?.trim().toLowerCase() ?? '';
+                            if (text.isEmpty) {
+                              return 'Dominio is required';
+                            }
+                            return null;
+                          },
+                        ),
+                        const SizedBox(height: 20),
+                        TextFormField(
+                          autovalidateMode: AutovalidateMode.onUserInteraction,
+                          onChanged: (text) {
                             controller.onUsernameChanged(text);
                           },
                           decoration: const InputDecoration(

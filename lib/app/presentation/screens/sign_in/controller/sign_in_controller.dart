@@ -43,6 +43,20 @@ class SignInController extends StateNotifier<SignInState> {
     _password = _genericService.cleanString(validatedPassword, 123); */
   }
 
+  void onDomainChanged(String text) {
+    onlyUpdate(
+      state.copyWith(
+        domain: text.trim().toLowerCase(),
+      ),
+    );
+    /*  _state = _state.copyWith(
+      domain: text.trim().toLowerCase(),
+    ); */
+    //_domain = text.trim().toLowerCase();
+    /*  String validatedDomain = text.trim().toLowerCase();
+    _domain = _genericService.cleanString(validatedDomain, 123); */
+  }
+
   // void onFetchingChanged(bool value) {
   /* update(
      
@@ -60,6 +74,7 @@ class SignInController extends StateNotifier<SignInState> {
     final result = await authenticationRepository.signIn(
       state.username,
       state.password,
+      state.domain,
     );
     result.when(
       (_) => state.copyWith(

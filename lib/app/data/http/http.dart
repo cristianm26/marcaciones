@@ -26,7 +26,10 @@ class Http {
         _baseUrl = baseUrl;
 
   final Client _client;
-  final String _baseUrl;
+  String _baseUrl;
+  void updateBaseUrl(String newBaseUrl) {
+    _baseUrl = newBaseUrl;
+  }
 
   Future<Either<HttpFailure, R>> request<R>(
     String path, {
@@ -129,7 +132,7 @@ class Http {
 
       return Either.left(
         HttpFailure(
-          exception: e.runtimeType,
+          exception: e.runtimeType.toString(),
         ),
       );
     } finally {

@@ -21,7 +21,7 @@ class _HomeViewState extends State<HomeView> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            if (user.usuarioFoto != null)
+            if (user.usuarioFoto != null && user.usuarioFoto!.isNotEmpty)
               Image.network(
                 user.usuarioFoto!,
                 width: 100,

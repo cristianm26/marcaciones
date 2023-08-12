@@ -9,6 +9,7 @@ import 'app/data/repositories_implementation/account_repository_impl.dart';
 import 'app/data/repositories_implementation/authentication_repository_impl.dart';
 import 'app/data/repositories_implementation/connectivity_repository_impl.dart';
 import 'app/data/services/local/session_service.dart';
+import 'app/data/services/local/utils.dart';
 import 'app/data/services/remote/account_api.dart';
 import 'app/data/services/remote/authentication_api.dart';
 import 'app/data/services/remote/internet_checker.dart';
@@ -22,9 +23,14 @@ void main() {
   final sessionService = SessionService(
     const FlutterSecureStorage(),
   );
+  //const String baseUrlAlias = 'desarrollo'; // Cambia esto según tus necesidades
+  //final String baseUrl = replaceUrl(baseUrlAlias);
+  const String baseUrlAlias = 'desarrollo'; // Cambia esto según tus necesidades
+  final String baseUrl = replaceUrl(baseUrlAlias);
+
   final http = Http(
     client: Client(),
-    baseUrl: 'https://desarrollo.twiinshrmprueba.com/talento_api/index.php',
+    baseUrl: baseUrl,
   );
   runApp(
     MultiProvider(
