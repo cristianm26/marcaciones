@@ -19,13 +19,19 @@ import 'app/domain/repositories/connectivity_repository.dart';
 import 'app/my_app.dart';
 import 'app/presentation/global/controllers/session_controller.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding
+      .ensureInitialized(); // Asegurarse de que Flutter esté inicializado
+
   final sessionService = SessionService(
     const FlutterSecureStorage(),
   );
-  //const String baseUrlAlias = 'desarrollo'; // Cambia esto según tus necesidades
-  //final String baseUrl = replaceUrl(baseUrlAlias);
-  const String baseUrlAlias = 'desarrollo'; // Cambia esto según tus necesidades
+
+  // Obtener la URL base del almacenamiento seguro
+  String? baseUrlAlias = await sessionService.urlApi;
+  if (baseUrlAlias == null || baseUrlAlias.isEmpty) {
+    baseUrlAlias = 'desarrollo';
+  }
   final String baseUrl = replaceUrl(baseUrlAlias);
 
   final http = Http(

@@ -46,6 +46,7 @@ class AuthenticationRepositoryImpl implements AuthenticationRepository {
       (failure) async => Either.left(failure),
       (newRequestToken) async {
         await _sessionService.saveToken(newRequestToken);
+        await _sessionService.saveUrlApi(domain);
         //await _sessionService.saveUrlApi(domain);
         //await _sessionService.saveUrlApi(urlApi)
         final sessionResult = await _authenticationApi.createSession(

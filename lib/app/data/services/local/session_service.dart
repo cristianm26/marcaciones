@@ -18,10 +18,10 @@ class SessionService {
     return token;
   }
 
-  /* Future<String?> get urlApi async {
+  Future<String?> get urlApi async {
     final urlApi = await _secureStorage.read(key: _keyUrlApi);
     return urlApi;
-  } */
+  }
 
   Future<void> saveSessionId(String sessionId) {
     return _secureStorage.write(
@@ -30,12 +30,12 @@ class SessionService {
     );
   }
 
-  /*  Future<void> saveUrlApi(String urlApi) {
+  Future<void> saveUrlApi(String urlApi) {
     return _secureStorage.write(
       key: _keyUrlApi,
       value: urlApi,
     );
-  } */
+  }
 
   Future<void> saveToken(String token) {
     return _secureStorage.write(

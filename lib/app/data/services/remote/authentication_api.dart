@@ -62,7 +62,6 @@ class AuthenticationApi {
 
     final String newBaseUrl = replaceUrl(domain); // Calcular la nueva URL
     _http.updateBaseUrl(newBaseUrl);
-    print('Constructed base URL: $newBaseUrl');
 
     final result = await _http.request(
       'login_controller',
