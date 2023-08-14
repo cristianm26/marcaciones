@@ -21,7 +21,9 @@ class _HomeViewState extends State<HomeView> {
     return const Scaffold(
       body: Stack(
         children: [
-          Background(),
+          Background(
+            showPositioned: true,
+          ),
           Contenido(
             miColor: Color(0xFFFFFFFF),
           ),
